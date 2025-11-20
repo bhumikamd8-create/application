@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Application Form</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 420px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            color: #dd2476;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #ff512f;
+            box-shadow: 0 0 8px rgba(255,81,47,0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(255,81,47,0.5);
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .output-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .field {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .label-title {
+            font-weight: bold;
+            color: #dd2476;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Online Application Form</h2>
+
+    <form id="appForm" method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" required>
+
+        <label>Course Applying For:</label>
+        <select name="course" required>
+            <option value="CSE">CSE</option>
+            <option value="ECE">ECE</option>
+            <option value="MECH">MECH</option>
+            <option value="CIVIL">CIVIL</option>
+        </select>
+
+        <label>Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+
+        <button type="submit">Submit Application</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#appForm").on("submit", function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: "submit.php",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(data){
+                $("#result").html(data);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
